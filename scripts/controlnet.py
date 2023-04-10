@@ -425,7 +425,7 @@ class Script(scripts.Script):
         self.infotext_fields = []
         self.paste_field_names = []
         controls = ()
-        max_models = shared.opts.data.get("control_net_max_models_num", 1)
+        max_models = shared.opts.data.get("control_net_max_models_num", 2)
         with gr.Group():
             with gr.Accordion("ControlNet", open = False, elem_id="controlnet"):
                 if max_models > 1:
@@ -878,4 +878,6 @@ class Img2ImgTabTracker:
 
 img2img_tab_tracker = Img2ImgTabTracker()
 script_callbacks.on_ui_settings(on_ui_settings)
+shared.opts.set("control_net_max_models_num", 4)
+shared.opts.save(shared.config_filename)
 script_callbacks.on_after_component(img2img_tab_tracker.on_after_component_callback)
